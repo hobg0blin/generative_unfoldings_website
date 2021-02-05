@@ -12,41 +12,40 @@ class Word{
     this.ID=ID;
     this.timer=ID*5;
     this.show=true;
+    this.fadey=0;
   }
   place(columns, pages, baseFontSize, sentence){ 
     this.topMargin=topMargin;
+    if (toPrint==true){right=width-300;columns=4;baseFontSize=120;} //re: print
+    let bottom=height-50+(baseFontSize*2);
     textSize(baseFontSize);
-    //if(this.listID>sentence) {
-    //topMargin += baseFontSize + baseFontSize/3;
-    //sentence=this.listID;}
-    //  if (columns==1) {
-    //    left = 40;}
-    //  if (columns==2) {
-    //    left = middle+40;}
-    //  else if (columns==4) {
-    //    left = random(40,width-200);}
-    //  else if (pages==2){left=middle +40;}
-    //}
     this.wWidth=textWidth(this.word);
     if (left + this.wWidth < right){ //&& this.listID<=sentence
       this.left=left; 
       this.topMargin=topMargin;
       this.show=true;
+      if(this.topMargin<height-baseFontSize*3){shownWords++;}
+      upTo+=1;
       sentSent+=this.sentVal;
       left+=this.wWidth+baseFontSize/3;
+      if (this.word =='"') { left-=baseFontSize/3;}
     }
-    else if(topMargin + 2.5*baseFontSize < height-baseFontSize*2.5 && this.topMargin<height-baseFontSize*2.5) {
+    else if(topMargin + 2.5*baseFontSize < bottom && this.topMargin<bottom) {
       topMargin+=2.5*baseFontSize;
       this.topMargin=topMargin;
       if (columns==1) {
         left = 40;}
       else if (columns==2 || pages==2) {
         left = middle+40;}
-      if (columns==4 || left + this.wWidth > right) {
+      if (columns==4 || left + this.wWidth > width-100) {
+        left = random(40,width-200);}
+      if (left + this.wWidth > width-100) {
         left = random(40,width-200);}
       this.left=left;
       left+=this.wWidth + baseFontSize/3;
       this.show=true;
+      if(this.topMargin<height-baseFontSize*3){shownWords++;}
+      upTo+=1;
       sentSent+=this.sentVal;
       sentence=this.listID;
     }
@@ -54,11 +53,11 @@ class Word{
   }
   build(){
     fill(0);  
-    if (frameCount>this.timer){ //&& this.show==true
+    if (frameCount > this.timer || toPrint==true ) { 
       if(this.topMargin<height-baseFontSize*3){
-      makeShape(this.pos1, this.pos2, this.pos3, this.left, this.topMargin, this.syll, this.sentVal, this.wWidth, this.ID, this.listID, this.word[0]); 
-      if (read==true){text(this.word, this.left, this.topMargin);} //console.log(this);
-      if (this.sentVal>0){
+       makeShape(this.pos1, this.pos2, this.pos3, this.left, this.topMargin, this.syll, this.sentVal, this.wWidth, this.ID, this.listID, this.word[0]); 
+       if (read==true && toPrint==false){if (this.fadey<255){this.fadey++;}if (this.fadey<255){this.fadey++;}fill(0, 0, 0, this.fadey);text(this.word, this.left, this.topMargin);} //console.log(this);
+       if (this.sentVal>0){
         noStroke();
         fill(0,0,255,35);
         ellipse(this.left+this.wWidth/2,this.topMargin+baseFontSize*5/8,75*this.sentVal, 75*this.sentVal);
@@ -86,33 +85,28 @@ class Word{
       this.played=true;
     }
     else if (this.played!==true){
-    //  playSynth(3, 1, this.syll);
+      //"normal letters"
     }
     this.played=true;
     }
-}
-}}
-/*
-    this.left=left;
-    this.topMargin=topMargin;
-    this.wWidth=wWidth;
-    
-    noFill();
-    let a = 0.0;
-    let inc = TWO_PI / 25.0;
-    beginShape();
-    for (let i = 0; i < 25; i++) {
-      //vertex(i * syll.length, 50 + sin(a) * wWidth);
-      vertex(i*syll.length, 50 + sin(a) * wWidth);
-      a = a + inc;
-    }
-    endShape();
-    
-     for (let i=0; i<paranalysis.length; i++){
-    push();
-    let sentcol= map(paranalysis[i][6], -5, 5, 0, 255);
-    fill(sentcol);
-    text(paranalysis[i][0] +' : ' + paranalysis[i][1]+' ['+ paranalysis[i][2]+ '] || ' + paranalysis[i][3]+' || ' + paranalysis[i][4]+ paranalysis[i][5]+' ' + paranalysis[i][6], floor(i/40)*220+30, i%40*13+150);
-    pop();  
   }
-*/
+}
+update(ID){
+  this.ID=ID;
+  this.timer=ID*5;
+}
+}
+class Dot{
+  constructor(ID, x, y, listID){
+    this.x=x;
+    this.y=y;
+    this.listID=listID;
+    this.ID=ID;
+    this.others=[];
+  }
+  move(){}
+  display(){
+    fill(0);
+    ellipse(this.x, this.y, 15, 15);
+  }
+}
