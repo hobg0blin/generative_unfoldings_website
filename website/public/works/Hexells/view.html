@@ -1,0 +1,299 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><style data-href="/styles.69af2a4f0446ae91dee2.css">body,html{font-family:Messina Sans,sans-serif;background-color:#f5f5f5;min-height:100vh;min-width:100vw;padding:0;margin:0}#___gatsby{max-width:100%;max-height:100%;margin:0}h1{font-size:24px}h2{font-size:18px;font-weight:400}p{font-size:14px}.layout{margin:0 auto;display:flex}.header,.website-content,.work,iframe{text-align:center;justify-content:center;margin:0 auto}iframe{margin-top:6px;width:86vw;height:82vh}iframe.large{height:94vh;width:92vw}.header{width:100vw;margin:12px auto;padding:0 0 12px;border-bottom:1px solid #ebebeb;background-color:hsla(0,0%,96.1%,.65);text-align:center}.header p{margin:0 auto 12px;max-width:70vw}.header a:visited,.header h1 a{text-decoration:none;color:#000!important;outline:none}.header.closed{width:40px;height:0;padding-top:30px;position:absolute;border:1px solid #ebebeb;margin:0;left:0}.header.closed :not(.icon-show-hide){display:none}.header .icon-show-hide{width:40px;height:0;background:hsla(0,0%,96.1%,.65) 10px 10px/20px 20px no-repeat;padding-top:40px;display:block;overflow:hidden;position:absolute;top:0;left:0}.header .icon-show-hide.hide-header{background-image:linear-gradient(45deg,transparent 13px,#ccc 0,#ccc 15px,transparent 0),linear-gradient(-45deg,hsla(0,0%,96.1%,.65) 13px,#ccc 0,#ccc 15px,hsla(0,0%,96.1%,.65) 0)}.header .icon-show-hide.show-header{background-image:-webkit-repeating-linear-gradient(#ccc,#ccc 2px,hsla(0,0%,96.1%,.65) 0,hsla(0,0%,96.1%,.65) 4px);background-image:repeating-linear-gradient(#ccc,#ccc 2px,hsla(0,0%,96.1%,.65) 0,#fff 4px)}.work-header{display:grid;max-height:8vh;grid-template-columns:repeat(3,1fr);align-items:center;margin:0 auto}.work-header *{display:flex;align-items:center;justify-content:center}.work-header .previous{height:100%;align-self:start;text-align:left}.work-header .info{height:100%;align-self:center;flex-flow:column nowrap}.work-header .info *{margin:3px auto}.work-header .info a{color:#000}.work-header .next{height:100%;align-self:end;text-align:right}.about,.menu{border:3px inset #ebebeb;margin:12px auto;width:70vw;padding:12px;justify-content:center;align-items:center;display:flex;flex-wrap:wrap}.about{text-align:left;width:50vw;padding:48px 96px}.about ul{list-style-type:none}.about ul a{text-decoration:none;color:#000}.about ul br{margin:3px auto}.menu .menu-item{display:flex;flex-direction:column;justify-content:center;align-items:center;width:20vw;height:20vw;margin:12px 1.5vw;font-size:14px;text-align:center;-o-object-fit:cover;object-fit:cover;border:1px outset #ebebeb}.menu .menu-item a{text-decoration:none}@media only screen and (max-width:950px){.menu .menu-item{width:32vw;height:32vw;margin:12px auto;font-size:12px}}.menu .menu-item img.preview-image{display:flex;-o-object-fit:cover;object-fit:cover;width:13vw;height:13vw;margin:6px auto}@media only screen and (max-width:950px){.header h1,.header h1 a{font-size:20px}.header a,.header h2,.header p{font-size:14px}}</style><meta name="generator" content="Gatsby 2.26.1"/><link as="script" rel="preload" href="/webpack-runtime-df02ec99c0c2d0871c82.js"/><link as="script" rel="preload" href="/styles-9411612e31e4f14527d1.js"/><link as="script" rel="preload" href="/framework-62e3997f8deedb325acf.js"/><link as="script" rel="preload" href="/app-59a51c0d7db796975a04.js"/><link as="script" rel="preload" href="/component---src-templates-work-js-ae61f752f906c09f51d6.js"/><link as="fetch" rel="preload" href="/page-data/works/Hexells/view.html/page-data.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data/app-data.json" crossorigin="anonymous"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div class="work"><div class="layout"><div class="website-content"><div class="header work-header open"><a class="icon-show-hide hide-header"></a><div><a class="previous" href="/works/gender-generator/view.html">Previous</a></div><div class="info"><h1><a href="/">Hexells</a></h1><h2><a href="/about#AlexanderMordvintsev"> <!-- -->Alexander Mordvintsev</a> </h2></div><div><a class="next" href="/works/LetterFromC/view.html">Next</a></div></div></div></div> <iframe class="" srcDoc="&lt;!doctype html&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0&quot;&gt;
+&lt;script src=&quot;twgl-full.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;dat.gui.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;seedrandom.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;ca.js&quot; type=&quot;module&quot;&gt;&lt;/script&gt;
+
+&lt;style&gt;
+html, body {
+  margin: 0px;
+  font-family: &#x27;Google Sans&#x27;, Arial, Helvetica, sans-serif;
+  color: #FFF;
+}
+canvas {
+  width: 100vw;
+  height: 100vh;
+}
+
+#fsButton {
+  position: fixed;
+  z-index: 10;
+  bottom: 20px; left:20px;
+}
+
+.centered { 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#info{
+  width: 300px;
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 20px;
+  z-index:5;
+}
+
+a:link {
+  color: red;
+}
+
+a:visited {
+  color: red;
+}
+
+.hint {
+  font-size: min(10vw, 8vh);
+  pointer-events: none;
+  white-space: nowrap;
+  opacity: 0;
+}
+
+.hint-anim {
+  animation: fadeIn linear 2s;
+}
+@keyframes fadeIn {
+  0% {opacity:0;}
+  10% {opacity:1;}
+  90% {opacity:1;}
+  100% {opacity:0;}
+}
+&lt;/style&gt;
+
+&lt;div id=&#x27;hint&#x27; class=&#x27;centered hint&#x27;&gt;⇦ Swipe ⇨&lt;/div&gt;
+
+&lt;div id=&#x27;info&#x27; class=&#x27;centered&#x27;&gt;
+  &lt;p&gt; &lt;b style=&quot;font-size: large;&quot;&gt;Hexells&lt;/b&gt;
+  &lt;span style=&quot;font-size: smaller;&quot;&gt;by &lt;a href=&quot;https://twitter.com/zzznah&quot;&gt;Alexander Mordvintsev&lt;/a&gt;&lt;span&gt;
+
+  &lt;p&gt;
+    is a Self-Organising System of cells, that was trained to build textures
+    using neighbour communication only. This work exposes the relation between
+    the life an individual cell, and the cell collective as a whole.
+  &lt;/p&gt;
+  &lt;p&gt;     The system is based on the 
+    &lt;a href=&quot;https://distill.pub/2020/growing-ca/&quot;&gt;Neural Cellular Automata&lt;/a&gt;.
+&lt;/p&gt;
+
+&lt;p style=&quot;font-size: large;&quot;&gt;
+  Touch to interact; swipe left or right to change the pattern.
+&lt;/p&gt;
+
+&lt;div id=&quot;hideBtn&quot; style=&quot;text-align: center;&quot;&gt;&lt;button&gt;Hide&lt;/button&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;canvas id=&quot;glCanvas&quot;&gt;&lt;/canvas&gt;
+&lt;button id=&quot;fsButton&quot;&gt;Fullscreen&lt;/button&gt;
+
+
+&lt;script type=&quot;module&quot;&gt;
+  import { CA } from &quot;./ca.js&quot;
+
+  const $ = q=&gt;document.querySelector(q);
+
+  const canvas = $(&#x27;#glCanvas&#x27;);
+
+  const requestFullscreen = canvas.requestFullscreen
+      || canvas.webkitRequestFullscreen || canvas.msRequestFullscreen;
+  if (requestFullscreen === undefined) {
+    $(&#x27;#fsButton&#x27;).style.display = &#x27;none&#x27;;
+  }
+
+  $(&#x27;#fsButton&#x27;).onclick = ()=&gt;{
+    const elem = canvas;
+    const opt = { navigationUI: &quot;hide&quot; };
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen(opt);
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+      elem.webkitRequestFullscreen(opt);
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+      elem.msRequestFullscreen(opt);
+    }
+  };
+  
+  $(&#x27;#hideBtn&#x27;).onclick = ()=&gt;{
+    $(&#x27;#info&#x27;).style.display = &#x27;none&#x27;;
+    $(&#x27;#hint&#x27;).classList.add(&#x27;hint-anim&#x27;);
+
+  };
+
+  const gl = canvas.getContext(&quot;webgl&quot;);
+  const gui = new dat.GUI();
+  gui.hide();
+  const param = {
+    active: true,
+    model: 149,
+    brushRadius: 16,
+    zoom: 1,
+    stepPerFrame: 1,
+    paintMode: false,
+  };
+  gui.add(param, &#x27;active&#x27;);
+  gui.add(param, &#x27;brushRadius&#x27;, 1, 40);
+  gui.add(param, &#x27;zoom&#x27;, 1.0, 64.0);
+  gui.add(param, &#x27;stepPerFrame&#x27;, 0, 6);
+  gui.add(param, &#x27;paintMode&#x27;, 0, 6);
+
+  const query = new URLSearchParams(location.search);
+  const seed = parseInt(query.get(&quot;seed&quot;));
+  if (seed) Math.seedrandom(seed);
+  const page = parseInt(query.get(&quot;page&quot;));
+  
+  fetch(&#x27;models.json&#x27;).then(r =&gt; r.json()).then(models =&gt; {
+    const onready = ()=&gt;{
+      if (page &amp;&amp; seed) {
+        param.active = false;
+        const pageModels = [132, 149, 134, 168, 104];
+        ca.paint(0, 0, -1, pageModels[page-1]);
+        ca.disturb();
+
+        for (let i=0; i&lt;400; ++i) ca.step();
+        $(&#x27;#fsButton&#x27;).style.display = &quot;none&quot;;
+        $(&#x27;#info&#x27;).style.display = &#x27;none&#x27;;
+        canvas.width = 2412;
+        canvas.height = 3074;
+        const viewSize = [canvas.width, canvas.height];
+        twgl.bindFramebufferInfo(gl);
+        ca.draw(viewSize);
+        const a = document.createElement(&#x27;a&#x27;);
+        a.href = canvas.toDataURL(&quot;image/png&quot;);
+        a.download = seed + &#x27;_&#x27; + page + &#x27;.png&#x27;;
+        a.click();
+      }
+    };
+    const ca = new CA(gl, models, [160, 160], gui, onready);
+    window.ca = ca;
+    ca.alignment = 0;
+    
+    const name2idx = Object.fromEntries(models.model_names.map((s, i) =&gt; [s, i]));
+    gui.add(param, &#x27;model&#x27;).options(name2idx).listen();
+
+    function getMousePos(e) {
+      return [e.offsetX, e.offsetY];
+    }
+    function getTouchPos(touch) {
+      const rect = canvas.getBoundingClientRect();
+      return [touch.clientX - rect.left, touch.clientY - rect.top];
+    }
+
+    const shuffledModels = models.model_names.map((_, i)=&gt;[Math.random(), i]).sort().map(p=&gt;p[1]);
+    let initModelIdx = parseInt(window.location.hash.slice(1));
+    if (isNaN(initModelIdx) || initModelIdx &lt; 0 || initModelIdx &gt;= shuffledModels.length) {
+      initModelIdx = 132;
+    }
+    console.log(initModelIdx);
+    ca.paint(0, 0, -1, initModelIdx);
+    let curModel = shuffledModels.indexOf(initModelIdx);
+    let gesture = null;
+    function startGestue(pos) {
+      gesture = {
+        l: 0, r: 0, u: 0, d: 0,
+        prevPos: pos,
+        time: Date.now()
+      };
+    }
+    function touch(pos) {
+      const [x, y] = pos;
+      const viewSize = [canvas.clientWidth, canvas.clientHeight];
+      if ( param.paintMode ) {
+        ca.paint(x, y, param.brushRadius, param.model, viewSize);
+      } else {
+        ca.clearCircle(x, y, param.brushRadius, viewSize);
+      }
+      if (gesture) {
+        const [x0, y0] = gesture.prevPos;
+        gesture.l += Math.max(x0-x, 0.0);
+        gesture.r += Math.max(x-x0, 0.0);
+        gesture.u += Math.max(y0-y, 0.0);
+        gesture.d += Math.max(y-y0, 0.0);
+        gesture.prevPos = pos;
+      }
+    }    
+    function endGestue(pos) {
+      if (!gesture)
+       return;
+      if (Date.now()-gesture.time &lt; 1000) {
+        const {l, r, u, d} = gesture;
+        let swipe = 0;
+        if (l&gt;100 &amp;&amp; Math.max(r, u, d)&lt;l*0.25) swipe = -1;
+        if (r&gt;100 &amp;&amp; Math.max(l, u, d)&lt;r*0.25) swipe = 1;
+        if (swipe != 0)  {
+            const n = shuffledModels.length;
+            curModel = (curModel+n+swipe) % n;
+            const i = shuffledModels[curModel];
+            ca.paint(0, 0, -1, i);
+            ca.disturb();
+            console.log(i);
+            //window.location.hash = i;
+        }
+      }
+      gesture = null;
+    }
+
+    canvas.onmousedown = e =&gt; {
+      e.preventDefault();
+      if (e.buttons == 1) {
+        const pos = getMousePos(e);
+        touch(pos);
+        startGestue(pos);
+      }
+    }
+    canvas.onmousemove = e =&gt; {
+      e.preventDefault();
+      if (e.buttons == 1) {
+        touch(getMousePos(e));
+      }
+    }
+    canvas.onmouseup = e =&gt; {
+      e.preventDefault();
+      endGestue(getMousePos(e));
+    }
+
+    canvas.addEventListener(&quot;touchstart&quot;, e =&gt; {
+      e.preventDefault();
+      const pos = getTouchPos(e.changedTouches[0]);
+      touch(pos);
+      if (e.touches.length == 1) {
+        startGestue(pos);
+      } else {
+        gesture = null; //cancel guesture
+      }
+    });
+    canvas.addEventListener(&quot;touchmove&quot;, e =&gt; {
+      e.preventDefault();
+      for (const t of e.touches) {
+        touch(getTouchPos(t));
+      }
+    });
+    canvas.addEventListener(&quot;touchend&quot;, e =&gt; {
+      e.preventDefault();
+      endGestue(getTouchPos(e.changedTouches[0]));
+    });
+    param.benchmark = ()=&gt;{
+      $(&#x27;#log&#x27;).insertAdjacentHTML(&#x27;afterbegin&#x27;, ca.benchmark());
+    }
+    gui.add(param, &#x27;benchmark&#x27;);
+
+    function render() {
+      if (param.active) {
+        ca.step();
+      }
+      
+      const devicePixelRatio = window.devicePixelRatio || 1;
+      canvas.width = Math.round(canvas.clientWidth * devicePixelRatio);
+      canvas.height = Math.round(canvas.clientHeight * devicePixelRatio);      
+      const viewSize = [canvas.clientWidth, canvas.clientHeight];
+
+      twgl.bindFramebufferInfo(gl);
+      ca.draw(viewSize);
+
+      requestAnimationFrame(render);
+    }
+
+    requestAnimationFrame(render);
+  })
+&lt;/script&gt;
+"></iframe></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/works/Hexells/view.html";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"polyfill":["/polyfill-058a0cee7fa5777b59c0.js"],"app":["/app-59a51c0d7db796975a04.js"],"component---src-pages-about-js":["/component---src-pages-about-js-d2cb2137b387d1a92e32.js"],"component---src-pages-index-js":["/component---src-pages-index-js-952d721f9ec3c63d5d35.js"],"component---src-templates-work-js":["/component---src-templates-work-js-ae61f752f906c09f51d6.js"]};/*]]>*/</script><script src="/polyfill-058a0cee7fa5777b59c0.js" nomodule=""></script><script src="/component---src-templates-work-js-ae61f752f906c09f51d6.js" async=""></script><script src="/app-59a51c0d7db796975a04.js" async=""></script><script src="/framework-62e3997f8deedb325acf.js" async=""></script><script src="/styles-9411612e31e4f14527d1.js" async=""></script><script src="/webpack-runtime-df02ec99c0c2d0871c82.js" async=""></script></body></html>
