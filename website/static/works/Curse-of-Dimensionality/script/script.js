@@ -1,4 +1,4 @@
-/*
+/* 
 
 	CURSE OF DIMENSIONALITY
 	Philipp Schmitt, 2020
@@ -23,7 +23,7 @@ const getRandomArrayElements = (arr, n) => {
 const random = (min,max) => {
 	let n = (Math.random() + Math.random() + Math.random()) / 3;
 	if(min && max) {
-		return n * (max - min) + min;
+		return n * (max - min) + min; 	
 	} else {
 		return n;
 	}
@@ -67,7 +67,7 @@ if(print) {
 } else {
 	// get window size
 	resolution = [
-		window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+		window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth, 
 		window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
 	]
 	// Don't need that canvas...
@@ -108,7 +108,7 @@ Promise.all(
 					diagram.style.transitionDuration = random(30,120) + 's';
 					diagram.style.transitionDelay = random(0,15) + 's';
 					diagram.style.transform = `
-						scale3D(${random(1,1.3)}, ${random(1,1.3)}, ${random(1,1.3)})
+						scale3D(${random(1,1.3)}, ${random(1,1.3)}, ${random(1,1.3)}) 
 						rotate3D(${random(-1,1)}, ${random(-1,1)}, ${random(-1,1)}, ${random(-100,100)}deg)
 					`;
 				}, 1000);
@@ -130,10 +130,10 @@ Promise.all(
 					// Place on canvas
 					ctx.globalCompositeOperation = 'multiply';
 					ctx.drawImage(
-						diagram,
-						Number(diagram.style.left.slice(0,-2)),
-						Number(diagram.style.top.slice(0,-2)),
-						diagram.naturalWidth * scaleFactor,
+						diagram, 
+						Number(diagram.style.left.slice(0,-2)), 
+						Number(diagram.style.top.slice(0,-2)), 
+						diagram.naturalWidth * scaleFactor, 
 						diagram.naturalHeight * scaleFactor
 					);
 				}
@@ -155,7 +155,7 @@ Promise.all(
 		// Wrap in a link that leads to new image
 		let captionLink = document.createElement('a');
 		captionLink.innerHTML = caption;
-    captionLink.href = './index.html?page=' + (Number(page)+1);
+		captionLink.href = '?page=' + (Number(page)+1);
 		captionEl.appendChild(captionLink);
 		// Append to DOM
 		document.querySelector('#caption').appendChild(captionEl);
