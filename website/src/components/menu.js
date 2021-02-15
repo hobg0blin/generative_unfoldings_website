@@ -26,5 +26,7 @@ export default function Menu(props) {
       <MenuItem item={item} />
     ))
     }
+      {/*blank div for spacing */}
+      <div></div>
     </div>)
 }

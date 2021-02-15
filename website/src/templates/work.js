@@ -1,6 +1,7 @@
 import React, {useState} from "react"
 import Layout from "../components/layout.js"
 import ArtistData from "../../static/data/work_info.json"
+import Footer from "../components/footer.js"
 
 const Work = props => {
   let html = props.pageContext.content
@@ -23,7 +24,7 @@ const Work = props => {
     setOpen(val)
   }
   return (
-    <div className="work"><Layout header= { workInfo.name } previous={prev >= 0 ? `/works/${ArtistData.works[prev].url}/view.html` : null } next={next < ArtistData.works.length ? `/works/${ArtistData.works[next].url}/view.html` : null} headerState = { headerOpen } onClick={handleChange} headerType='work-header' subHead = { workInfo.artist }></Layout> <iframe className={!headerOpen ? "large": ''} srcDoc={html}></iframe></div>
+    <div className="work"><Layout header= { workInfo.name } previous={prev >= 0 ? `/works/${ArtistData.works[prev].url}/view.html` : null } next={next < ArtistData.works.length ? `/works/${ArtistData.works[next].url}/view.html` : null} headerState = { headerOpen } onClick={handleChange} headerType='work-header' subHead = { workInfo.artist }></Layout> <iframe className={!headerOpen ? "large": ''} srcDoc={html}></iframe><Footer isOpen={headerOpen ? "open" : "closed"}></Footer></div>
   )
 }
 export default Work
