@@ -14,14 +14,14 @@ class Word{
     this.show=true;
     this.fadey=0;
   }
-  place(columns, pages, baseFontSize, sentence){ 
+  place(columns, pages, baseFontSize, sentence){
     this.topMargin=topMargin;
     if (toPrint==true){right=width-300;columns=4;baseFontSize=120;} //re: print
     let bottom=height-50+(baseFontSize*2);
     textSize(baseFontSize);
     this.wWidth=textWidth(this.word);
     if (left + this.wWidth < right){ //&& this.listID<=sentence
-      this.left=left; 
+      this.left=left;
       this.topMargin=topMargin;
       this.show=true;
       if(this.topMargin<height-baseFontSize*3){shownWords++;}
@@ -52,10 +52,10 @@ class Word{
     else {this.topMargin=height+20;this.show=false;}
   }
   build(){
-    fill(0);  
-    if (frameCount > this.timer || toPrint==true ) { 
+    fill(0);
+    if (frameCount > this.timer || toPrint==true ) {
       if(this.topMargin<height-baseFontSize*3){
-       makeShape(this.pos1, this.pos2, this.pos3, this.left, this.topMargin, this.syll, this.sentVal, this.wWidth, this.ID, this.listID, this.word[0]); 
+       makeShape(this.pos1, this.pos2, this.pos3, this.left, this.topMargin, this.syll, this.sentVal, this.wWidth, this.ID, this.listID, this.word[0]);
        if (read==true && toPrint==false){if (this.fadey<255){this.fadey++;}if (this.fadey<255){this.fadey++;}fill(0, 0, 0, this.fadey);text(this.word, this.left, this.topMargin);} //console.log(this);
        if (this.sentVal>0){
         noStroke();

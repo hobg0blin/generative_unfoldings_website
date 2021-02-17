@@ -15,18 +15,17 @@ export default function About() {
 
   return <Layout header="Generative Unfoldings" subPara="">
     <div className="about" >
-      <p dangerouslySetInnerHTML={{__html: about.about}}></p>
+      <div dangerouslySetInnerHTML={{__html: about.about}}></div>
     <ul>
       { artists.map(artist => (
         <li>
-          <a className="artistBio" id = {artist.artist.replace(/ /g, '')} href={`#${artist.artist.replace(/ /g, '')}`}> { artist.name } -{artist.artist}</a>
+          <a href={`/works/${artist.url}/view.html`}> { artist.name }</a> - <a className="artistBio" id = {artist.artist.replace(/ /g, '')} href={`#${artist.artist.replace(/ /g, '')}`}>{artist.artist}</a>
         <br/>
         <p dangerouslySetInnerHTML={{__html: artist.bio}}></p>
       </li>
       ))
       }
     </ul>
-
     </div>
     <Footer></Footer>
     </Layout>

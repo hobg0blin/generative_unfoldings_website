@@ -1,5 +1,7 @@
 import React from "react"
 import MenuItem from "./menuItem.js"
+import alphabeticSort from './alphabeticSort.js'
+import artistData from '../../static/data/work_info.json'
 
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
@@ -20,9 +22,11 @@ function shuffle(array) {
   return array;
 }
 
+
+const works = artistData.works
 export default function Menu(props) {
   return (<div className="menu">
-    { props.items.map(item => (
+    { works.map(item => (
       <MenuItem item={item} />
     ))
     }

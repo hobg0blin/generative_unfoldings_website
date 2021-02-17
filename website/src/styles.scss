@@ -73,20 +73,29 @@ iframe {
     justify-self: start;
     width: 50vw;
     text-align: left;
+    p {
+      margin-top: $margin*1.5;
+    }
   }
 
   .mit-info {
     margin-right: 15vw;
-    width: 20vw;
+    width: 18vw;
+    margin-top: 1.2vw;
     justify-self: end;
     text-align: right;
   }
   img {
-    height: 8vh;
+    margin-top: $margin;
   }
   .exhibit-logo {
+    max-width: 45vw;
+    width: 45vw;
+    height: auto;
   }
   .mit-logo {
+    width: 10vw;
+    height: auto;
   }
   p {
     margin: 0 auto $margin;
@@ -105,7 +114,7 @@ iframe {
   position: absolute;
   border: 1px solid #ebebeb;
   margin: 0;
-  left: 0px;
+  right: 0px;
   *:not(.icon-show-hide) {
     display: none;
   }
@@ -119,7 +128,7 @@ iframe {
     overflow: hidden;
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
 
     &.hide-header {
       background-image: linear-gradient(45deg, transparent 13px, #ccc 13px, #ccc 15px, transparent 0), linear-gradient(-45deg, rgba(245, 245, 245, 0.65) 13px, #ccc 13px, #ccc 15px, rgba(245, 245, 245, 0.65) 0);
@@ -131,6 +140,10 @@ iframe {
     background-image: repeating-linear-gradient(#ccc, #ccc 2px, rgba(245, 245, 245, 0.65) 2px, #fff 4px);
     }
   }
+}
+
+.mobile-disclaimer {
+  display: none;
 }
 
 .work-header {
@@ -176,7 +189,7 @@ iframe {
   }
 
   .next, .previous {
-    font-size: 11px;
+    font-size: 12px;
   }
   .next {
     height: 100%;
@@ -193,6 +206,7 @@ iframe {
   flex-wrap: wrap;
 }
 .menu {
+  margin-top: $margin*2;
   justify-content: space-between;
   align-items: flex-start;
 }
@@ -220,6 +234,9 @@ iframe {
     br {
       margin: $margin/4 auto;
     }
+  }
+  .artistBio {
+    text-decoration: none;
   }
 }
 .menu {
@@ -258,7 +275,7 @@ iframe {
 
 .footer {
   display: flex;
-  height: $margin*4;
+  height: $margin*3.7;
   width: 100vw;
   background-color:#f5f5f5;
   bottom: 0;
@@ -281,7 +298,11 @@ iframe {
 }
 
 @media only screen and (max-width: 950px) {
+  .mobile-disclaimer {
+    display: inherit;
+  }
   .header {
+    background-color: none;
     h1, h1 a {
       font-size: 20px;
     }
@@ -294,16 +315,42 @@ iframe {
     .info h2 {
       margin-bottom: $margin/3;
     }
+    .info {
+      width: 60vw;
+    }
+    .exhibit-info {
+      margin-left: 10vw;
+      width: 50vw;
+    }
+    .mit-info {
+      margin-right: 10vw;
+      width: 30vw;
+    }
+    .exhibit-logo {
+      width: 45vw;
+      max-width: 45vw;
+    }
+    .exhibit-info p {
+      width: 70vw;
+    }
   }
+  iframe {
+    width: 95vw;
+  }
+    .about {
+      margin: auto 10vw;
+      width: 80vw;
+    }
     .menu {
       justify-content: space-between;
+      width: 80vw;
+      margin: auto 5vw;
       .menu-item, div {
-        height: 40vw;
-        width: 30vw;
-        margin-bottom: $margin*3;
+        height: 55vw;
+        width: 40vw;
         img.preview-image {
-          height: 30vw;
-          width: 30vw;
+          height: 40vw;
+          width: 40vw;
         }
         a {
           font-size: 14px !important;
