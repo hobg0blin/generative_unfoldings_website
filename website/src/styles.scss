@@ -390,7 +390,7 @@ button.fullscreen {
         width: 100%;
       }
     }
-    .exhibit-logo {
+    .exhibit-logo, &.work .exhibit-logo {
       width: 100%;
       max-width: inherit;
     }
@@ -400,6 +400,7 @@ button.fullscreen {
   }
   iframe {
     width: 95vw;
+    max-width: 95vw;
   }
     .about {
       margin: auto 10vw;
