@@ -10,15 +10,20 @@ html, body{
   font-weight: 200;
   background-color: #f5f5f5;
   min-height:100vh;
-  min-width:100vw;
+  max-width: 100%;
   padding: 0;
   margin: 0;
 }
+* {
+}
 #___gatsby {
   max-width: 100%;
-  max-height: 100%;
   margin: 0 0 $margin*4;
 
+}
+
+img {
+  color: #f5f5f5;
 }
 
 h1 {
@@ -32,11 +37,25 @@ h2 {
 p {
   font-size: 14px;
 }
+.accessibility-tag {
+  font-size: 0;
+  width: 1px;
+  height: 1px;
+  display: inline-block;
+  overflow: hidden;
+  position: absolute!important;
+  border: 0!important;
+  padding: 0!important;
+  margin: 0!important;
+  clip: rect(1px,1px,1px,1px);
+}
 .layout {
   margin: 0 auto;
   display: flex;
 }
 .header, .work, .website-content, iframe {
+  width: 100vw;
+  max-width: 100%;
   text-align: center;
   justify-content: center;
   margin: 0 auto;
@@ -45,17 +64,43 @@ p {
 iframe {
   margin-top: $margin/2;
   width: 76vw;
+  max-width: 76vw;
   height: 69vh;
-  border: none;
+
+   &:fullscreen {
+    background-color: #f5f5f5;
+  }
+ border: none;
   &.large {
     height: 96vh;
     width: 92vw;
+    max-width: 92vw;
   }
 }
 
+button.fullscreen {
+  border: none;
+  background: none;
+  position: absolute;
+  right: 12vw;
+  width: 5vw;
+  bottom: 4.2vw;
+  transition: transform .2s;
+  svg {
+    stroke: white;
+  }
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.2)
+  }
+}
+
+.header:not(.work-header) {
+  margin: $margin*2 0 0;
+}
 .header {
   width: 100vw;
-  margin: 0 0;
+  max-width: 100%;
   padding: 0 0 $margin;
  // border-bottom: 1px solid #ebebeb;
   background-color: rgba(245, 245, 245, 0.65);
@@ -80,7 +125,7 @@ iframe {
 
   .mit-info {
     margin-right: 15vw;
-    width: 18vw;
+    width: 20vw;
     margin-top: 1.2vw;
     justify-self: end;
     text-align: right;
@@ -91,11 +136,22 @@ iframe {
   .exhibit-logo {
     max-width: 45vw;
     width: 45vw;
+    min-height: 4vw;
     height: auto;
   }
   .mit-logo {
     width: 10vw;
     height: auto;
+  }
+  &.work {
+    .exhibit-logo {
+      max-width: 30vw;
+      min-height: 3vw;
+      width: 30vw;
+    }
+    .mit-logo {
+      width: 7vw;
+    }
   }
   p {
     margin: 0 auto $margin;
@@ -121,6 +177,7 @@ iframe {
   }
   .icon-show-hide {
     width: 40px;
+    z-index: 100000;
     height: 0;
     background: rgba(245, 245, 245, 0.65) 10px 10px / 20px 20px no-repeat;
     padding-top: 40px;
@@ -206,7 +263,7 @@ iframe {
   flex-wrap: wrap;
 }
 .menu {
-  margin-top: $margin*2;
+  margin: $margin*2 15vw;
   justify-content: space-between;
   align-items: flex-start;
 }
@@ -277,6 +334,7 @@ iframe {
   display: flex;
   height: $margin*3.7;
   width: 100vw;
+  max-width: 100%;
   background-color:#f5f5f5;
   bottom: 0;
   justify-content: center;
@@ -302,7 +360,9 @@ iframe {
     display: inherit;
   }
   .header {
-    background-color: none;
+    &.work:not(.work-header):not(.closed) {
+      margin-top: 6vw;
+    }
     h1, h1 a {
       font-size: 20px;
     }
@@ -316,22 +376,26 @@ iframe {
       margin-bottom: $margin/3;
     }
     .info {
-      width: 60vw;
+      width: 65vw;
     }
     .exhibit-info {
-      margin-left: 10vw;
-      width: 50vw;
+      margin-left: 5vw;
+      margin-right: 2vw;
+      width: 63vw;
     }
     .mit-info {
-      margin-right: 10vw;
-      width: 30vw;
+      margin-right: 5vw;
+      width: 21vw;
+      .mit-logo {
+        width: 100%;
+      }
     }
     .exhibit-logo {
-      width: 45vw;
-      max-width: 45vw;
+      width: 100%;
+      max-width: inherit;
     }
     .exhibit-info p {
-      width: 70vw;
+      width: 80vw;
     }
   }
   iframe {
@@ -343,7 +407,7 @@ iframe {
     }
     .menu {
       justify-content: space-between;
-      width: 80vw;
+      width: 90vw;
       margin: auto 5vw;
       .menu-item, div {
         height: 55vw;
@@ -357,6 +421,8 @@ iframe {
         }
       }
     }
-    
+  .button.fullscreen {
+    display: none;
+  }
 
 }

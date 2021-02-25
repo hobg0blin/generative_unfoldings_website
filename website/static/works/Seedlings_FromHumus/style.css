@@ -26,6 +26,7 @@ svg, form, #remove {
   -ms-user-select: none;
   /* Internet Explorer/Edge */
   user-select: none;
+  max-width: 100%;
   /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }

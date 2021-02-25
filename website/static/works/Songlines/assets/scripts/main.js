@@ -7,7 +7,7 @@ var smooth_reward = [];
 // agent parameters for finetuning
 var spec = {};
 
-// display 
+// display
 var font;
 var stats = {};
 
@@ -43,7 +43,7 @@ let gfxAlpha = 0;
 let pSec = 0;
 
 let textSelect = 0;
-let titleSelect = 0; 
+let titleSelect = 0;
 
 let pitchSelect = 0;
 
@@ -82,7 +82,7 @@ function setup() {
   ptrace0.x = 0;
   trace1.x = ww;
   ptrace1.x = ww;
-  
+
   trace0.y = wh/2;
   ptrace0.y = wh/2;
   trace1.y = wh/2;
@@ -96,7 +96,7 @@ function setup() {
   });
   fm1.set({"harmonicity": harmonicities[floor(random(harmonicities.length))]});
   fm2.set({"harmonicity": harmonicities[floor(random(harmonicities.length))]});
-  
+
   generatePoisons();
 
   t1 = new Triangulum(width/2 - ww/2 - 200, height/3, 100, 0);
@@ -117,7 +117,7 @@ function setup() {
     if(page < 5) {
       w.agents[0].apples = map(page,1,4,10,maxScore-1);
       w.agents[1].apples = map(page,1,4,10,maxScore-40);
-      
+
       GAME_STATE = "play";
       randomSeed(seed);
       gen(gfx1,pts1,10,random(0.2,0.4),2,11,col1);
@@ -131,7 +131,7 @@ function setup() {
       }
       if(page==3) {
         generateRandomPoisons();
-      } 
+      }
       if(page==4) {
         generateItems();
         generateRandomPoisons();
@@ -154,7 +154,7 @@ function setup() {
 function draw() {
   background(colors.bg);
   frameRate(60);
-  
+
   if (GAME_STATE == "intro") {
     noStroke();
 
@@ -203,7 +203,7 @@ function draw() {
       if(dist(mouseX,mouseY,pmouseX,pmouseY)>4) {
         addItem(myCursor);
       }
-      
+
       fill(255, 20);
       noStroke();
       ellipse(myCursor.x, myCursor.y, 100, 100);
@@ -251,7 +251,7 @@ function draw() {
       }
       rotate(a.heading);
       let ms = a.rad / 2
-      
+
       strokeCap(ROUND)
       strokeJoin(ROUND)
 
@@ -265,7 +265,7 @@ function draw() {
       endShape()
 
       pop();
-     
+
       // sight
       for (var j = 0; j < a.eyes.length; j++) {
         var e = a.eyes[j];
@@ -305,7 +305,7 @@ function draw() {
     // draw items (food)
     for (var i = 0; i < w.items.length; i++) {
       var it = w.items[i];
-      var coloralpha; 
+      var coloralpha;
       if(seed&&page) {
         coloralpha = 255;
       }else{
@@ -329,7 +329,7 @@ function draw() {
     // make sound
     for (var i = 0; i < w.agents.length; i++) {
       if (w.agents[i].apples != pApples[i]) {
-        
+
         if (i == 0) { // first agent
           feedbackDelay1.set({
             delayTime: random(0.01, 0.1),
@@ -355,7 +355,7 @@ function draw() {
         drone.set({
           playbackRate: pitches[pitchSelect][rnd]
         });
-        
+
       }
       if (w.agents[i].poison != pPoison[i]) {
         let rnd = floor(random(3));
@@ -426,7 +426,7 @@ function draw() {
     fill(colors.type);
     textSize(16);
     text(texts[textSelect], width/2-width/8,height-height/3.5,width/4);
-    
+
     noStroke();
     fill(255,gfxAlpha/20);
     triangle(width/3,height-height/3,width/2,height/5,width/3+width/3,height-height/3);
@@ -446,7 +446,7 @@ function draw() {
     stroke(255,50);
     beginShape();
     let xoff = 0;
-    noiseSeed(seed); 
+    noiseSeed(seed);
     for (let x = 0; x <= width/3; x += 10) {
       let y = map(noise(xoff, yoff), 0, 1, 200, 300);
       vertex(x + width/3, y + height/2-gfx1.height);
@@ -465,7 +465,7 @@ function draw() {
     }
     yoff += 0.001;
     endShape();
-    
+
     tint(255,gfxAlpha);
     image(gfx1, width/2 - gfx2.width, height/2-gfx1.height, gfx1.width*2,gfx1.height*2);
     image(gfx2, width/2 - gfx2.width, height/2-gfx2.height, gfx2.width*2,gfx2.height*2);
@@ -477,7 +477,7 @@ function draw() {
     // indicate winner ..?
     if (winnerID == 0) {} else {}
   }
-  
+
   // check scores
   for (var i = 0; i < w.agents.length; i++) {
     if (w.agents[i].apples >= maxScore) {
@@ -486,7 +486,7 @@ function draw() {
       w.items = [];
       GAME_STATE = "outro";
       drone.stop();
-      
+
       fm2.triggerAttackRelease(Tone.Midi((random(6)+12) * 2).toFrequency(), "36n");
 
       textSelect = floor(random(texts.length));
@@ -589,4 +589,8 @@ function linedash(x1, y1, x2, y2, delta, style = '-') {
 
     if (style == '-') { line(xi1, yi1, xi2, yi2); } else if (style == '.') { point(xi1, yi1); } else if (style == 'o') { ellipse(xi1, yi1, delta / 2); }
   }
+}
+
+function windowResized() {
+  setup()
 }

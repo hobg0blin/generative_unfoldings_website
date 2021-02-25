@@ -434,7 +434,7 @@
 
 				window.addEventListener( 'resize', onWindowResize, false );
 
-				document.addEventListener( 'keydown', onKeyDown, false );
+				document.body.addEventListener( 'keydown', onKeyDown, false );
 
 				if (seed && page) {
 					for (var i = 1; i <= page - 1; i++) {

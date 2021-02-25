@@ -433,7 +433,7 @@
 
 				window.addEventListener( 'resize', onWindowResize, false );
 
-				document.addEventListener( 'keydown', onKeyDown, false );
+        document.addEventListener( 'keydown', onKeyDown, false );
 
 				if (seed && page) {
 					for (var i = 1; i <= page - 1; i++) {
@@ -472,9 +472,9 @@
 			//animate with m
 
 			function onKeyDown ( event ) {
+          v = event.keyCode
 
 				switch( event.keyCode ) {
-
 					case 77: /*M*/  animDeltaDir *= -1; break;
 
 				}
