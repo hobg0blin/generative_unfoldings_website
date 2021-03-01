@@ -6,8 +6,9 @@ export default function WorkHeader(props) {
   function handleChange() {
     props.onClick(!open);
   }
+  // previously used to minimize header, still here in case we need it    <a onClick= {handleChange} className={`icon-show-hide ${open ? "hide-header": "show-header"}`}></a>
+
   return <div><Header workHeader={ true } isOpen={ open ? "open" : "closed"}></Header><div className={`header work work-header ${ open ? "open" : "closed" }`}>
-    <a onClick= {handleChange} className={`icon-show-hide ${open ? "hide-header": "show-header"}`}></a>
   <div>{ props.previous && <a className="previous" href={props.previous}>Previous</a>}</div>
   <div className="info"><h1>{props.headerText}</h1>
     {props.subHead && <h2><a href={`/about#${ props.subHead.replace(/[^a-zA-Z0-9]/g,'_') }`}> {props.subHead}</a> </h2>}

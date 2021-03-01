@@ -454,7 +454,10 @@ function loadFrames(arr){
     }
     toLoadFrames.map((fn) => {
         let fullPath = "frames/"+fn;
-        framePromises.push(n.load(fullPath).then(res => {return res.data;}));
+        framePromises.push(n.load(fullPath).then(res => {return res.data;}).then(value => new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(value);
+                }, 20)})));
     });
     Promise.all(framePromises).then((v) => {
         for (let i = 0; i < v.length; i++){
@@ -475,7 +478,10 @@ toLoadFonts.map((fn) => {
         console.log(fullPath);
         let t = tf.tensor(res.data, res.shape);
         return t;
-    }));
+    }).then(value => new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(value);
+                }, 20)})));
 });
 
 Promise.all(fontPromises).then((v) => {
@@ -493,13 +499,20 @@ Promise.all(fontPromises).then((v) => {
 function loadWeights(seed){
     g.startedLoadWeights = true;
 
+    let interval = 30;
     toLoadWeights.map((fn) => {
         let fullPath = "weights/"+fn;
-        promises.push(n.load(fullPath).then(res => {
+        promises.push(new Promise(resolve => {
+                setTimeout(() => {
+                    resolve();
+                }, interval)}).then(() => n.load(fullPath).then(res => {
             console.log(fullPath);
             let t = tf.tensor(res.data, res.shape);
             return t;
-        }));
+        }).catch(e => {
+          console.log('error: ', e)
+        })));
+      interval += 50;
     });
 
     function setRandom(ly, seed){
