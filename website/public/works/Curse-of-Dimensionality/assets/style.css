@@ -59,6 +59,7 @@ body {
 		-webkit-box-pack: center;
 		    -ms-flex-pack: center;
 		        justify-content: center;
+		width: 100vw;
 	}
 
 		#caption h2 {
@@ -71,7 +72,7 @@ body {
 		  -webkit-box-pack: center;
 		  -ms-flex-pack: center;
 		  justify-content: center;
-		  width: 100vw;
+		  margin: 0 1em;
 		  font-size: 1em;
 		}
 
