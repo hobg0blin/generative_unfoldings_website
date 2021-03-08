@@ -89,7 +89,6 @@ a:visited {
 </div>
 
 <canvas id="glCanvas"></canvas>
-<button id="fsButton">Fullscreen</button>
 
 
 <script type="module">
@@ -99,23 +98,6 @@ a:visited {
 
   const canvas = $('#glCanvas');
 
-  const requestFullscreen = canvas.requestFullscreen
-      || canvas.webkitRequestFullscreen || canvas.msRequestFullscreen;
-  if (requestFullscreen === undefined) {
-    $('#fsButton').style.display = 'none';
-  }
-
-  $('#fsButton').onclick = ()=>{
-    const elem = canvas;
-    const opt = { navigationUI: "hide" };
-    if (elem.requestFullscreen) {
-      elem.requestFullscreen(opt);
-    } else if (elem.webkitRequestFullscreen) { /* Safari */
-      elem.webkitRequestFullscreen(opt);
-    } else if (elem.msRequestFullscreen) { /* IE11 */
-      elem.msRequestFullscreen(opt);
-    }
-  };
   
   $('#hideBtn').onclick = ()=>{
     $('#info').style.display = 'none';
@@ -154,7 +136,6 @@ a:visited {
         ca.disturb();
 
         for (let i=0; i<400; ++i) ca.step();
-        $('#fsButton').style.display = "none";
         $('#info').style.display = 'none';
         canvas.width = 2412;
         canvas.height = 3074;

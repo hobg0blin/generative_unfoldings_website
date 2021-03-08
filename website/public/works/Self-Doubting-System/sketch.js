@@ -536,9 +536,8 @@ function detectSave() {
 
 function windowResized() {
   setTimeout(() => {
-    console.log('bing bong')
     window.location.reload()
-  }, 3000)
+  }, 1000)
 }
 
 

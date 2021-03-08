@@ -92,6 +92,7 @@ button.fullscreen {
   grid-column-start:1;
   border: none;
   background: none;
+  z-index: 100000;
 //  position: absolute;
   margin-right: 12vw;
   justify-self: end;
@@ -434,8 +435,11 @@ button.fullscreen {
         }
       }
     }
-  .button.fullscreen {
+  button.fullscreen {
     display: none;
+    svg {
+      display: none;
+    }
   }
 
 }
