@@ -207,6 +207,8 @@ function setup() {
 		createCanvas(4921, 7360); //resize for 300dpi!
 		talking = true;
 	} else {
+    console.log('starting w: ', windowWidth)
+    console.log('starting h: ', windowHeight)
 		createCanvas(windowWidth, windowHeight);
 	}
 
@@ -264,27 +266,27 @@ function mousePressed() {
 }
 
 function startScreen() {
-	image(roomImg[0], 0, 0, width, height);
+	image(roomImg[0], 0, 0, windowWidth, windowHeight);
 	textFont(f2);
 
-	if (width < 600) {
+	if (windowWidth < 600) {
 		background(0);
 	}
 	fill(0);
 	strokeWeight(5);
 	fill(255);
-	rect(width / 2, height / 2, 110, 40);
+	rect(windowWidth / 2, windowHeight / 2, 110, 40);
 	fill(0);
 	textSize(30);
 	textAlign(CENTER, CENTER);
 
-	text("Play?", width / 2, height / 2);
+	text("Play?", windowWidth / 2, windowHeight / 2);
 
-	rect(width / 2, height / 4, width / 2, 60);
+	rect(windowWidth / 2, windowHeight / 4, windowWidth / 2, 60);
 	//TITLE
 	textSize(60);
 	fill(226, 226, 216);
-	text(title, width / 2, height / 4);
+	text(title, windowWidth / 2, windowHeight / 4);
 }
 
 function processAPI() {
@@ -316,16 +318,16 @@ function initSprites() {
 	for (let i = 0; i < items; i++) {
 		roomObjs[i] = createSprite(400, 200);
 		roomObjs[i].addImage(roomImg[i]);
-		roomObjs[i].position.x = random(width);
-		roomObjs[i].position.y = random(height);
+		roomObjs[i].position.x = random(windowWidth);
+		roomObjs[i].position.y = random(windowHeight);
 	}
 	//create npcs
 	for (let i = 0; i < npcs; i++) {
 		npcObjs[i] = createSprite(400, 200);
 		npcObjs[i].addImage(npcImg[i]);
 
-		npcObjs[i].position.x = random(width);
-		npcObjs[i].position.y = random(height);
+		npcObjs[i].position.x = random(windowWidth);
+		npcObjs[i].position.y = random(windowHeight);
 	}
 }
 
@@ -376,9 +378,9 @@ function drawRoomText() {
 	textAlign(LEFT, TOP);
 	fill(5);
 	rectMode(CORNER);
-	rect(0, height - 50, width, 50);
+	rect(0, windowHeight - 50, windowWidth, 50);
 	fill(0, 200, 0);
-	text(fortune[roomText], textX, height - 50);
+	text(fortune[roomText], textX, windowHeight - 50);
 	textX--;
 	if (textX + fortune[roomText].length * 25 < 0) {
 		textX = 30;
@@ -430,9 +432,9 @@ function haveConvo() {
 			if (params.page) {
 				//magic nums to make print sizing look better
 				textSize(88);
-				rect(width / 2, height / 2, width / 3, height / 10);
+				rect(windowWidth / 2, windowHeight / 2, windowWidth / 3, windowHeight / 10);
 			} else {
-				rect(width / 2, height / 2, width / 3, height / 5);
+				rect(windowWidth / 2, windowHeight / 2, windowWidth / 3, windowHeight / 5);
 			}
 
 			fill(0, 255, 0);
@@ -442,7 +444,7 @@ function haveConvo() {
 				questNum = 0;
 			}
 
-			text(questions[questNum], width / 2, height / 2, width / 4, height / 4);
+			text(questions[questNum], windowWidth / 2, windowHeight / 2, windowWidth / 4, windowHeight / 4);
 		} else {
 			talking = false;
 			player.scale = 1;
@@ -469,8 +471,8 @@ function resetRoom() {
 	questNum++;
 
 	//change player position and velocity
-	player.position.x = random(width);
-	player.position.y = random(height);
+	player.position.x = random(windowWidth);
+	player.position.y = random(windowHeight);
 	player.velocity.x = random(-5, 5);
 	player.velocity.y = random(-5, 5);
 	//make sure it's not agonizingly slow
@@ -498,8 +500,8 @@ function resetRoom() {
 		roomObjs[i].addImage(roomImg[int(random(items))]);
 		//	roomObjs[i].scale = random(0.5, 1.5);
 
-		roomObjs[i].position.x = random(width);
-		roomObjs[i].position.y = random(height);
+		roomObjs[i].position.x = random(windowWidth);
+		roomObjs[i].position.y = random(windowHeight);
 	}
 
 	for (let i = 0; i < currentNPCs; i++) {
@@ -524,7 +526,6 @@ function colorChanger() {
 function detectSave() {
 	if (params.seed && params.page) {
 		print("saving");
-
 		noLoop();
 		saveCanvas(params.seed + "_" + params.page, "png");
 	} else if (keyIsPressed && key == "s") {
@@ -534,5 +535,10 @@ function detectSave() {
 }
 
 function windowResized() {
-	resizeCanvas(windowWidth, windowHeight);
+  setTimeout(() => {
+    console.log('bing bong')
+    window.location.reload()
+  }, 3000)
 }
+
+

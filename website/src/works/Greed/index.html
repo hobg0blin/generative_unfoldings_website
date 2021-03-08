@@ -16,11 +16,31 @@
 				text-align: center;
 			}
 
-			a { color: #fb0; }
+			a { color: #f60; }
 
 			#footer { position: absolute; bottom: 40px; width: 100%; }
-			.h { color: #fb0 }
+			.h { color: #f60 }
 			.c { display: inline; margin-left: 1em }
+
+			#player-container #play-pause {
+		  cursor: pointer;
+		  text-indent: -999999px;
+		  height:12px;
+		  width: 12px;
+		  padding: 5px 6px;
+		  z-index: 2;
+		    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMiAyNHYtMjRsMjAgMTItMjAgMTJ6Ii8+PC9zdmc+);
+		    background-repeat: no-repeat!important;
+		    background-position: center;
+		    background-size: 12px;
+		  background-color: #f60;
+		}
+		.play {
+		  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMiAyNHYtMjRsMjAgMTItMjAgMTJ6Ii8+PC9zdmc+);
+		}
+		.pause {
+		   background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTAgMjRoLTZ2LTI0aDZ2MjR6bTEwLTI0aC02djI0aDZ2LTI0eiIvPjwvc3ZnPg==)!important;
+		}
 
 		</style>
 	</head>
@@ -35,8 +55,14 @@
 			</div> &nbsp;&nbsp;&nbsp;&nbsp; rendered by <a href="http://threejs.org" target="_blank" rel="noopener">three.js</a>  using
 						<a href="https://github.com/ashima/webgl-noise" target="_blank" rel="noopener">simplex noise</a><br/>
 
-						<iframe src="sound.html" width="100%" height="0" style="border:none;">
-				</iframe>
+						<audio id="track">
+  <source src="sounds/greed.mp3" type="audio/mpeg" />
+	 <source src="sounds/greed.ogg" type="audio/ogg" />
+</audio>
+
+<div id="player-container">
+  <div id="play-pause" class="play"></div>
+</div>
 
 			</div>
 
@@ -55,6 +81,28 @@
 
 		<script src="js/Detector.js"></script>
 
+<script>
+var track = document.getElementById('track');
+
+var controlBtn = document.getElementById('play-pause');
+
+function playPause() {
+    if (track.paused) {
+        track.play();
+        //controlBtn.textContent = "Pause";
+        controlBtn.className = "pause";
+    } else {
+        track.pause();
+         //controlBtn.textContent = "Play";
+        controlBtn.className = "play";
+    }
+}
+
+controlBtn.addEventListener("click", playPause);
+track.addEventListener("ended", function() {
+  controlBtn.className = "play";
+});
+</script>
 
 		<script id="fragmentShaderNoise" type="x-shader/x-fragment">
 
@@ -206,7 +254,8 @@
 
 			var SCREEN_WIDTH = window.innerWidth;
 			var SCREEN_HEIGHT = window.innerHeight;
-
+			const PAGE_WIDTH = 2412;
+			const PAGE_HEIGHT = 3074;
 			var renderer, container, stats;
 
 			var camera, scene, controls;
@@ -225,6 +274,7 @@
 			var animDelta = 0, animDeltaDir = -1;
 			var lightVal = 0, lightDir = 1;
 
+
 			var clock = new THREE.Clock();
 
 			var updateNoise = true;
@@ -238,7 +288,7 @@
 			const page = parseInt(urlParams.get("page"));
 			//create a random number generator with our designated seed
 			const rng = new Math.seedrandom(seed);
-			var screenshotFrame;
+			var randomNumber;
 
 			init();
 			animate();
@@ -246,6 +296,7 @@
 			function init() {
 
 				container = document.getElementById( 'container' );
+
 
 				// SCENE (RENDER TARGET)
 
@@ -433,18 +484,14 @@
 
 				window.addEventListener( 'resize', onWindowResize, false );
 
-        document.addEventListener( 'keydown', onKeyDown, false );
+				document.addEventListener( 'keydown', onKeyDown, false );
 
 				if (seed && page) {
 					for (var i = 1; i <= page - 1; i++) {
 						// every time this is called, it hits our random number generator inside the getRandomInt function
-						getRandomInt(50, 500);
-
-					    //console.log(getRandomInt(100, 1000));
-
+						getRandomInt(1, 1000);
 					}
-					// will take screenshot between frame 100 and 1000
-					screenshotFrame = getRandomInt(50, 500);
+					randomNumber = getRandomInt(1, 1000);
 				}
 
 			}
@@ -472,9 +519,9 @@
 			//animate with m
 
 			function onKeyDown ( event ) {
-          v = event.keyCode
 
 				switch( event.keyCode ) {
+
 					case 77: /*M*/  animDeltaDir *= -1; break;
 
 				}
@@ -499,8 +546,7 @@
 			    // set camera and renderer to desired screenshot dimension
 			    camera.aspect = width / height;
 			    camera.updateProjectionMatrix();
-			    // renderer.setSize(  width, height );
-				renderer.setSize(  2412, 3074 );
+			 	renderer.setSize(  width, height );
 
 
 			    renderer.render( scene, camera, null, false );
@@ -547,8 +593,8 @@
 			//return File Name
 
 			function defaultFileName (ext, seed, page) {
-				var prng = new Math.seedrandom();
-				var randomNumber =  prng.int32();
+				//var prng = new Math.seedrandom();
+				//var randomNumber =  prng.int32();
 				str = `${seed}_${page}${ext}`;
 				return str;
 			}
@@ -556,21 +602,14 @@
 
 			var frame = 0;
 			function animate(){
-
-			if (screenshotFrame !== undefined && frame === screenshotFrame) {
-				takeScreenshot( SCREEN_WIDTH, SCREEN_HEIGHT, seed, page);
 				requestAnimationFrame( animate );
 				render();
-			} else {
-				requestAnimationFrame( animate );
-				render();
-			}
-			frame++;
+				frame++;
 
 			}
 
 
-
+			var tookScreenshot = false;
 			function render() {
 
 				var delta = clock.getDelta();
@@ -603,7 +642,17 @@
 						animDelta = THREE.Math.clamp( animDelta + 0.00075 * animDeltaDir, 0, 0.05 );
 						uniformsNoise[ 'time' ].value += delta * animDelta;
 
-						uniformsNoise[ 'offset' ].value.x += delta * 0.05;
+						if(seed && page){
+							if(!tookScreenshot){
+								uniformsNoise[ 'offset' ].value.x = randomNumber * 0.05;
+								setTimeout(() => {
+									takeScreenshot( PAGE_WIDTH, PAGE_HEIGHT, seed, page);
+								}, 500);
+								tookScreenshot = true;
+							}
+						}else{
+							uniformsNoise[ 'offset' ].value.x += delta * 0.05;
+						}
 
 						uniformsTerrain[ 'uOffset' ].value.x = 4 * uniformsNoise[ 'offset' ].value.x;
 
@@ -625,3 +674,4 @@
 
 	</body>
 </html>
+
