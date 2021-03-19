@@ -1,3 +1,4 @@
+
 @media print {
   .no-print, .no-print * {
     display: none !important;
@@ -26,7 +27,6 @@ svg, form, #remove {
   -ms-user-select: none;
   /* Internet Explorer/Edge */
   user-select: none;
-  max-width: 100%;
   /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
@@ -38,6 +38,7 @@ svg line {
 body {
   margin: 0;
   width: 100%;
+  background-color: white;
 }
 
 body.rightClicked {
@@ -92,48 +93,92 @@ select {
   background-color: #EEE;
 }
 
-#aboutButton, #closeButton {
-  border: 1px black solid;
-  margin: 10px;
+#closeButton {
+  outline: 1px black solid;
+  outline-offset: -2px;
+  font-size: 14px;
+  line-height: 20px;
+  margin: 28px 10px 0 6px;
   width: 10px;
+  height:18px;
   text-align: center;
   font-family: sans-serif;
   color: #444;
   cursor: pointer;
+  padding: 4px 8px;
 }
 
-#aboutButton {
+.floatingElement {
   position: fixed;
-  top: 0;
-  right: 0;
-  padding: 4px 8px;
+  top: 20px;
+  right: 50px;
+}
+#aboutButton {
+  width:43px;
+  font-size: 14px;
+  margin-left: 8px;
+  border-bottom: 1px solid;
+}
+#pages {
+  background-color: white;
+  position:absolute;
+  top:20px;
+}
+#aboutButton, #pages{
+  letter-spacing: 0.07em;
+  font-family:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+  cursor:pointer;
+}
+#pages ul {
+  list-style-type: none;
+  margin-right: 4px;
+  padding-left: 0;
+}
+#pages li.current {
+  background-color: #EEE;
+}
+#pages li:hover{
+  background-color: #DEDEDE;
+  transition: .5s;
+}
+#pages li {
+  padding:4px 8px;
+  font-size:14px;
+  /* text-align: center; */
+  text-transform: capitalize;
+  /* background-color: #EFEFEF; */
 }
 
 #closeButton {
   position: absolute;
   top: 0;
   right: 0;
-  font-size: 11px;
-  line-height: 11px;
-  padding: 3px 5px;
 }
 
 #about {
   background: #EEE;
-  width: 500px;
-  padding: 50px;
+  width: 600px;
+  padding: 4% 50px 2%;
   min-height: 300px;
-  top: 200px;
+  height:94%;
   left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   position: fixed;
-  margin-left: -300px;
   line-height: 1.2em;
   color: #333;
   transition-duration: 1s;
   display: none;
   font-size: 0.9em;
 }
-
+#wrapper {
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  position:absolute;
+  width:600px;
+}
 #about i {
   font-size: 1.2em;
   padding-bottom: 0.5em;
@@ -263,12 +308,14 @@ button:hover, #run:hover, #remove:hover {
 
 #aboutButton:hover {
   color: black;
-  background-color: #EEE !important;
+  font-weight: 600;
+  border-bottom: 3px solid;
 }
 
 #closeButton:hover {
   color: black;
-  background-color: #FFF;
+  font-weight: 600;
+  outline: 3px black solid;
 }
 
 #remove {
@@ -307,7 +354,7 @@ a {
 
 /****** General CSS *******/
 g text, #verticalTest {
-  font-family: 'SourceCodePro-Light';
+  font-family: 'SourceCodePro-Light', monospace;
 }
 
 g text.soil {
@@ -420,3 +467,4 @@ textPath {
 .koruResult {
   position: absolute;
 }
+

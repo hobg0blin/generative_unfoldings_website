@@ -6,10 +6,23 @@ let margin = {
     right: 50,
     bottom: 20,
     left: 50
-  },
-  timeOutTracker = null;
+  };
+
+  // if it's in iframe,check width
+  var myWidth = 0, myHeight = 0;
+  if( typeof( window.innerWidth ) == 'number' ) {
+    //Non-IE
+    myWidth = window.innerWidth;
+    myHeight = window.innerHeight;
+  } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+    //IE 6+ in 'standards compliant mode'
+    myWidth = document.documentElement.clientWidth;
+    myHeight = document.documentElement.clientHeight;
+  }
+  // window.alert("current size:" + myWidth + " " + myHeight);
+
 // Canvas parameters
-const WIDTH = window.innerWidth,
+const WIDTH = window.innerWidth > 900 ? window.innerWidth : 900,
   HEIGHT = 1000,
   MAX_PLANTS = 13;
 
@@ -31,7 +44,7 @@ let soilOder = []; // A list of soil id
 
 function initSvgCanvas(w, h, fontSize) {
   if (fontSize) {
-    FONT_SIZE = fontSize;
+    FONT_SIZE =  fontSize;
     DASH_STYLE = FONT_SIZE / 2 + ", " + FONT_SIZE / 2;
     LINE_HEIGHT = FONT_SIZE * 2;
     PARA_WIDTH = 1510; // max width of the paragraph
@@ -45,15 +58,12 @@ function initSvgCanvas(w, h, fontSize) {
   const svg = d3.select(".content").append("svg")
     .attr("width", w)
     .attr("height", h)
-    .append("g")
     .attr("transform", "translate(" + margin.left + "," + 0 + ")")
     .attr("class", "wrapper")
-    .attr("font-size", fontSize + "px");
+    .attr("font-size", FONT_SIZE + "px");
 
   const soilSVG = svg.append("g")
     .attr("id", "soil");
-
-
 }
 
 function checkIntersections(r) {
@@ -64,7 +74,7 @@ function checkIntersections(r) {
     y1 = r.nextPos.y;
   // RootID - "_root" = plantID
   const plantId = rootId.split("_")[0];
-  for (var i = 0; i < soilOder.length; i++) {
+  for (let i = 0; i < soilOder.length; i++) {
     const s = soil[soilOder[i]];
     let b = s.boundingBox;
     const collid = lineRect(x, y, x1, y1, b.x, b.y, b.width, b.height);
@@ -158,6 +168,11 @@ function initializeSoil(page, pageMode, callback) {
     yPos = initialY;
   let rightMostXPos = xPos;
 
+  if(pageMode) PAGE_MODE = true;
+
+  console.log("Initialize Text:", page)
+  $("#pages ul li:eq(" + (page-1) + ")") .addClass("current");
+
   jQuery.get('text.txt', function(data) {
     const allContexts = data.split("________________");
     const textIdx = page != undefined ? (page - 1) : getRandomInt(allContexts.length);
@@ -222,7 +237,7 @@ function guid() {
   }
 
   function _p8(s) {
-    var p = (Math.random().toString(16) + "000000000").substr(2, 8);
+    const p = (Math.random().toString(16) + "000000000").substr(2, 8);
     return s ? "-" + p.substr(0, 4) + "-" + p.substr(4, 4) : _random_letter() + p.substr(0, 7);
   }
   return _p8() + _p8(true) + _p8(true) + _p8();
@@ -239,7 +254,7 @@ function plant(word, domain, p, x, y, delay = 0) {
   word = singularize(word).toLowerCase();
   domain = singularize(domain).toLowerCase();
 
-  var data = {
+  const data = {
     "id": guid(),
     "type": p,
     "seed": word,
@@ -249,7 +264,7 @@ function plant(word, domain, p, x, y, delay = 0) {
   };
 
   setTimeout(function() {
-    var plant = new PLANTS[p](data);
+    const plant = new PLANTS[p](data);
     plant.draw();
     plant.grow();
     plant.animate();
@@ -259,14 +274,14 @@ function plant(word, domain, p, x, y, delay = 0) {
 }
 
 function generateSequence(word, domain, x, y) {
-  var id = 0;
-  var LIMIT = 5;
-  var lastEndPos, lastWord;
+  const id = 0;
+  const LIMIT = 5;
+  let lastEndPos, lastWord;
 
   function f(id) {
-    var p = randomPlant();
+    const p = randomPlant();
     // var p = "plant";
-    var data = {
+   const data = {
       "id": id,
       "type": p,
       "seed": lastWord ? lastWord : word,
@@ -274,7 +289,7 @@ function generateSequence(word, domain, x, y) {
       "x": lastEndPos ? lastEndPos.x + Math.random() * 400 - 200 : WIDTH / 2,
       "y": lastEndPos ? lastEndPos.y - 200 : HEIGHT - 20,
     }
-    var plant = new PLANTS[p](data);
+    const plant = new PLANTS[p](data);
     plant.getResult(function() {
       adjustView(plant.y);
       plant.draw();
@@ -341,7 +356,7 @@ function randomPlant(w) {
 
 /******* Randomness *******/
 function removeItemOnce(arr, value) {
-  var index = arr.indexOf(value);
+  const index = arr.indexOf(value);
   if (index > -1) {
     arr.splice(index, 1);
   }
@@ -352,14 +367,6 @@ function getTextWidth(text, isVertical) {
   let test = isVertical ? document.getElementById("verticalTest") : document.getElementById("Test");
   test.innerHTML = text;
   return isVertical ? test.clientHeight : test.clientWidth;
-}
-
-function clearCanvas() {
-  clearTimeout(timeoutTracker);
-  d3.selectAll("svg g.seedling").remove();
-  lastEndPos = null;
-  lastWord = "";
-
 }
 
 function adjustView(y, time) {
@@ -412,6 +419,15 @@ function shuffle(array) {
   return array;
 }
 
+function clearCanvas() {
+  $("#pages li").removeClass("current");
+  $("#soil" ).empty();
+  $("svg g.seedling").remove();
+  plants = {}; // All the plants
+  soil = {}; // The soil object
+  soilOder = []; // A list of soil id
+}
+
 $(document).ready(function() {
   $(".content").click(function() {
     $('.contextMenu').hide();
@@ -421,7 +437,27 @@ $(document).ready(function() {
   $("#closeButton").click(function() {
     $('#about').hide();
   })
+
   $("#aboutButton").click(function() {
     $('#about').toggle();
   })
+
+  $("#pages ul li" ).click(function() {
+    const textIdx = $(this).attr("idx");
+    clearCanvas();
+    initializeSoilWithRandomPlant(textIdx);
+    adjustView(Y_OFFSET + 300, 2500);
+  });
+
 });
+
+// $(window).on('resize', function(){
+//   // if window.innerWidth changes, adjustcanvas
+//  console.log("resize");
+//  window.alert("current size:" + window.innerWidth + " " + window.innerHeight);
+//   var win = $(this); //this = window
+//   // if (win.width() >= 900 ) {
+//   //   updateD3CanvasWidth(win.width());
+//   // }
+// });
+

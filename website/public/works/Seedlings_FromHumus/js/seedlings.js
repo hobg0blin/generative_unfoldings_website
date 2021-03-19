@@ -3,11 +3,13 @@ const isCompost = false;
 let ANIME = true;
 
 let FONT_SIZE = 14, DASH_STYLE = FONT_SIZE / 2 + ", " + FONT_SIZE / 2;
+const FONT = "Source Code Pro Light, monospace";
 const SCALE_FACTOR = 20, COMPOST_TIME = 4000,
       GROUND_WIDTH = 200,
       START_DELAY = 500, // chunk - branch
       LEFT_MARGIN = 200;
 
+let PAGE_MODE = false;
 /* Not in use:
       SECTION_GAP = 50, // between two plants
 */
@@ -37,6 +39,7 @@ class SoilWord {
     const tmp = d3.select("#soil").append("text")
       .attr("id", this.id)
       .text(this.text)
+      .attr("font-family", FONT)
       .attr("x", this.x)
       .attr("y", this.y)
       .call(dragEvent)
@@ -226,7 +229,7 @@ class Plant {
       y: this.y
     };
     this.endPos;
-    this.maxNumOfRoots = 13;
+    this.maxNumOfRoots = PAGE_MODE ? 3 : 9;
 
     // d3 elements
     var self = this;
@@ -453,15 +456,19 @@ class Plant {
     const textX = this.currentP.x - FONT_SIZE * 1 / 4,
       textY = this.currentP.y - FONT_SIZE * 1.5 * i - this.HEIGHT - FONT_SIZE;
 
-    b.append("text")
-      .text(w)
-      .attr("x", textX)
-      .attr("y", textY)
-      .attr("text-anchor", flag)
-      .attr("class", "branch_text bg");
+   if (!PAGE_MODE) {
+      b.append("text")
+        .text(w)
+        .attr("font-family", FONT)
+        .attr("x", textX)
+        .attr("y", textY)
+        .attr("text-anchor", flag)
+        .attr("class", "branch_text bg");
+      }
 
     b.append("text")
       .text(w)
+      .attr("font-family", FONT)
       .attr("x", textX)
       .attr("y", textY)
       .attr("text-anchor", flag)
@@ -659,16 +666,21 @@ class Ginkgo extends Plant {
     .style("-webkit-transform-origin", origin)
     .attr("class", "branch_text_wrapper");
 
+
+    if (!PAGE_MODE) {
     textWrapper.append("text")
       .attr("x", x)
       .attr("y", y)
       .text("            " + w)
+      .attr("font-family", FONT)
       .attr("class", "branch_text bg");
+    }
 
     textWrapper.append("text")
       .attr("x", x)
       .attr("y", y)
       .text("            " + w)
+      .attr("font-family", FONT)
       .attr("class", "branch_text");
 
   }
@@ -738,18 +750,22 @@ class Pine extends Plant {
     const posY = this.y - FONT_SIZE * 1.5 * idx - this.HEIGHT;
     const xOffset = getRandomIntInclusive(-5, 5);
 
+    if (!PAGE_MODE) {
     b.append("text")
       .attr("x", this.x + xOffset)
       .attr("y", posY)
       .attr("text-anchor", "middle")
       .text(word)
+      .attr("font-family", FONT)
       .attr("class", "branch_text bg");
+    }
 
     b.append("text")
       .attr("x", this.x + xOffset)
       .attr("y", posY)
       .attr("text-anchor", "middle")
       .text(word)
+      .attr("font-family", FONT)
       .attr("class", "branch_text");
 
   }
@@ -808,18 +824,22 @@ class Ivy extends Plant {
     this.currentP.x += FONT_SIZE * w.length * 2 / 3;
     var ypos = this.y + (FONT_SIZE * v + Math.random() * 15) - FONT_SIZE * 3;
 
+    if (!PAGE_MODE) {
     b.append("text")
       .attr("x", this.currentP.x)
       .attr("y", ypos)
       .attr("text-anchor", "middle")
       .text(w)
+      .attr("font-family", FONT)
       .attr("class", "branch_text bg");
+    }
 
     b.append("text")
       .attr("x", this.currentP.x)
       .attr("y", ypos)
       .attr("text-anchor", "middle")
       .text(w)
+      .attr("font-family", FONT)
       .attr("class", "branch_text");
 
   }
@@ -896,14 +916,18 @@ class Dandelion extends Plant {
     .style("transform-origin", origin)
     .style("-webkit-transform-origin", origin);
 
+    if (!PAGE_MODE) {
     textWrapper.append("text")
       .text(w)
+      .attr("font-family", FONT)
       .attr("x", endx - 20)
       .attr("y", endy - 20)
       .attr("class", "branch_text bg");
+    }
 
     textWrapper.append("text")
       .text(w)
+      .attr("font-family", FONT)
       .attr("x", endx - 20)
       .attr("y", endy - 20)
       .attr("class", "branch_text");
@@ -951,6 +975,7 @@ class Koru extends Plant {
       .style("font-size", FONT_SIZE + i)
       .style("transition-delay", START_DELAY + i * 200 + "ms")
       .text(w + " ")
+      .attr("font-family", FONT)
   }
 
   draw() {
@@ -1003,18 +1028,22 @@ class Bamboo extends Plant {
       return;
     }
 
+    if (!PAGE_MODE) {
     b.append("text")
       .attr("x", x)
       .attr("y", y)
       .attr("text-anchor", "end")
       .text(content)
+      .attr("font-family", FONT)
       .attr("class", "branch_text bg");
+    }
 
     b.append("text")
       .attr("x", x)
       .attr("y", y)
       .attr("text-anchor", "end")
       .text(content)
+      .attr("font-family", FONT)
       .attr("class", "branch_text");
 
     this.currentP.y -= h;
@@ -1040,19 +1069,21 @@ class Bamboo extends Plant {
     this.currentP.x += 30;
     this.currentP.y -= 10;
   }
-
-
 }
 
-var PLANTS = {
+let PLANTS = {
+  "bamboo": Bamboo,
+  "dandelion": Dandelion,
   "ginkgo": Ginkgo,
-  "plant": Plant,
   //"koru":Koru,
   "ivy": Ivy,
-  "bamboo": Bamboo,
   "pine": Pine,
-  "dandelion": Dandelion
+  "plant": Plant
 }
+// remove bamboo for safari
+const ua = navigator.userAgent.toLowerCase()
+const is_safari = ua.indexOf('safari/') > -1 && ua.indexOf('chrome') < 0;
+if(is_safari) delete PLANTS["bamboo"];
 
 // Functions
 function drawSeed(seed, x, y, g, h) {
@@ -1064,6 +1095,7 @@ function drawSeed(seed, x, y, g, h) {
   const xPos = x + FONT_SIZE / 2,
     yPos = y - h + FONT_SIZE;
 
+  if (!PAGE_MODE) {
   s.append("text")
     .attr("x", xPos)
     .attr("y", yPos)
@@ -1071,6 +1103,8 @@ function drawSeed(seed, x, y, g, h) {
     .attr("dy", ".35em")
     .attr("class", "bg")
     .text(seed)
+    .attr("font-family", FONT)
+  }
 
   s.append("text")
     .attr("x", xPos)
@@ -1078,6 +1112,7 @@ function drawSeed(seed, x, y, g, h) {
     .style("writing-mode", "tb")
     .attr("dy", ".35em")
     .text(seed)
+    .attr("font-family", FONT)
 
   return s;
 }
@@ -1088,18 +1123,24 @@ function drawDomain(domain, x, y, g) {
   const xPos = x + FONT_SIZE / 2,
     yPos = y + FONT_SIZE / 2;
 
+  if (!PAGE_MODE) {
   d.append("text")
     .attr("x", xPos)
     .attr("y", yPos)
     .attr("dy", ".35em")
     .attr("class", "bg")
+    .attr("font-family", FONT)
     .text(domain);
+  }
+
 
   d.append("text")
     .attr("x", xPos)
     .attr("y", yPos)
     .attr("dy", ".35em")
+    .attr("font-family", FONT)
     .text(domain);
+
 }
 
 function drawGround(x, y, g) {
@@ -1153,3 +1194,4 @@ Math.radians = function(degrees) {
 Number.prototype.map = function(in_min, in_max, out_min, out_max) {
   return (this - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
+
