@@ -7,6 +7,8 @@ const w = page != 1 ? 2412 : 3074;
 const h = page != 1 ? 3074 : 2412;
 
 $(document).ready(function() {
+  populateContextMenu();
+
   if (test){
     testSingularize();
     return;
@@ -137,11 +139,8 @@ $(document).ready(function() {
     const textIdx = getRandomIntInclusive(1, 5);
     if (textIdx == 2 && WIDTH > 1000) margin.left = 200;
     initSvgCanvas(WIDTH, HEIGHT);
-    initializeSoil(textIdx, false, function() {
-      const targetIdx = getRandomInt(10);
-      clickSoilWordByIdx(targetIdx);
-    });
-    adjustView(Y_OFFSET + 300, 2000);
+    initializeSoilWithRandomPlant(textIdx);
+    adjustView(Y_OFFSET + 300, 2500);
   }
 });
 
@@ -163,10 +162,23 @@ function plantByIdx(idx, type) {
 
 }
 
+function initializeSoilWithRandomPlant(textIdx) {
+  initializeSoil(textIdx, false, function() {
+    const targetIdx = getRandomInt(10);
+    clickSoilWordByIdx(targetIdx);
+  });
+}
+
 function clickSoilWordByIdx(idx) {
   const target = soil[soilOder[idx]];
   //console.log("Init:", target.text)
   target.dblclick();
+}
+
+function populateContextMenu() {
+  for (const plant in PLANTS) {
+    $("#plantTypes ul").append('<li class="button">' + plant + '</li>')
+  }
 }
 
 function exportPNG() {
@@ -189,3 +201,4 @@ document.body.onkeyup = function(e) {
     exportPNG();
   }
 }
+
